@@ -1,0 +1,32 @@
+{% if submitted %}
+		Your registration was successfull. Following is your unique code for this registration:
+        {% if messages %}
+            {% for message in messages %}
+            <div class="d-flex justify-content-center">
+            <div class="card">
+                <div class="card-body">
+                  <h1 class="card-title justify-content-center"> {{message}} </h1>
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        You are expected to pay 50₹ for the drops at the venue. When paying, please show this code to the event coordinator at the venue for payment verification.
+
+        <div class="d-grid gap-2 d-md-flex justify-content-center" style="margin-top: 20px;">
+            <a class="btn btn-primary" href="{% url 'publicEventPage' event.id %}" role="button">New Registration</a>
+        </div>
+
+{% else %}
+
+    <form action="" method=POST>
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Submit" class="btn btn-secondary">
+
+    </form>
+
+{% endif %}

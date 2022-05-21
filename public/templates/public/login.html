@@ -1,0 +1,30 @@
+{% extends 'public/base.html' %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-center" style="margin-top: 5%;">
+        <div class="card">
+            <div class="card-header bg-light" style="color:black"> Login</div>
+            <div class="card-body bg-light" style="color:black">
+                <form  method=POST>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="InputUserName" class="form-label">User Name</label>
+                      <input type="text" class="form-control" name="Username">
+                    </div>
+                    <div class="mb-3">
+                      <label for="InputPassword" class="form-label">Password</label>
+                      <input type="password" class="form-control" name="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form> 
+                <hr>
+                <div class="justify-content-md-end">
+                    <b>New here?</b>
+                    <a class="btn btn-primary" href="{% url 'userRegister' %}" role="button">Register</a>
+                </div>
+            </div>
+        </div>   
+    </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'coordinators/base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center" style="margin-top: 5%; margin-bottom: 5%;">
+    <div class="card">        
+        <div class="card-header bg-light" style="color:black"> Attendee Approval </div>
+        <div class="card-body bg-light" style="color:black">
+
+            {% if fetched %}
+
+                {% if submitted %}
+
+                    You approved this payment successfully!
+                    <div class="d-grid gap-2 d-md-flex justify-content-center" style="margin-top: 5px;">
+                        <a class="btn btn-primary" href="{% url 'coordinatorHome' %}" role="button">Next Attendee</a>
+                    </div>
+
+                {% else %}
+
+                    <form  method=POST>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                        <label for="AtendeeCode" class="form-label">Attendee Code</label>
+                        <input type="text" class="form-control"  value="{{ UniqueCode }}" name="UniqueCode" readonly>
+                        </div>
+                        <hr>
+                        <fieldset disabled>
+                        <b>Attendee Info:</b>
+                        {{ form.as_p }}
+                        <div class="mb-3">
+                        <label for="Due" class="form-label">Received:</label>
+                        <input type="text" class="form-control"  placeholder=" 50 ₹ " name="Amount">
+                        </div>
+                        </fieldset>
+                        <div class="text-center">
+                            <button type="Paid" class="btn btn-success" name="formType" value="approve">Approve</button>
+                        </div>
+                    </form> 
+
+                {% endif %}
+
+            {% else %}
+                <form  method=POST>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                    <label for="AtendeeCode" class="form-label">Attendee Code</label>
+                    <input type="text" class="form-control"  placeholder="Unique Code" name="UniqueCode">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary" name="formType" value="fetch" >Fetch</button>
+                    </div>
+                </form> 
+
+            {% endif %}
+
+        </div>
+    </div>   
+</div>
+
+{% endblock %}

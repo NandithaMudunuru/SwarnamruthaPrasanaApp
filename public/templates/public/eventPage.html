@@ -1,0 +1,38 @@
+{% extends 'public/base.html' %}
+
+{% block content %}
+
+    <h1>{{ event }}</h1>
+    <br/>
+    <div class="card text-white bg-info" style="margin: 15px;">
+        <div class="card-body info">
+            <b>Timings:</b> {{event.start_time}} to {{event.end_time}} <br/>
+            <b>Venue:</b>  <br/>            
+            <i>Address:</i> {{event.venue.address}} <br/>  
+            <i>PIN Code:</i> {{event.venue.pincode}} <br/>  
+        </div>
+    </div>   
+
+    <div class="d-flex justify-content-center" style="margin-bottom: 20%;">
+        <div class="card">
+            <div class="card-header">
+                Registration Form
+            </div>
+            <div class="card-body">
+                {% include 'public/attendeeForm.html' %}   
+            </div>
+        </div>   
+    </div>
+
+    <div class="container-fluid">
+        <div class="card justify-content-center">
+            <div class="card-header">
+                Other swarnamrutha prasana events at {{event.venue}}
+            </div>
+            <div class="card-body">
+                {% include 'public/eventList.html' %}   
+            </div>
+        </div>   
+    </div>
+
+{% endblock %}

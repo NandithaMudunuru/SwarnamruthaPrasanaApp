@@ -1,0 +1,121 @@
+<div style="margin:20px; margin-left:0px;">
+<div class="accordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+          Overview
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body bg-dark">
+
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    You approved {{numOfAttendees}} attendees. <br/>
+                </div>
+                <div class="col-4">
+                    <b>Amount collected:</b> {{amountCollected}} <br/>
+                </div>
+            </div>
+            <hr>
+            <b>Timings:</b> {{currentEvent.start_time}} to {{currentEvent.end_time}} <br/>
+            <b>Venue:</b>  <br/>            
+            <i>Address:</i> {{currentEvent.venue.address}} <br/>  
+            <i>PIN Code:</i> {{currentEvent.venue.pincode}} <br/> 
+
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+          List of attendees approved by you
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+        <div class="accordion-body bg-dark" style="padding:0px;">
+
+            {% if numOfAttendees != 0 %}
+            <table class="table table-dark table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Phone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for attendee in attendees %}
+                    <tr>
+                        <th scope="row">{{ attendee.name }}</th>
+                        <td>{{ attendee.ageOfParticipants }}</td>
+                        <td>{{ attendee.contact }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% else %}
+
+                <div class="bg-dark" style="padding:25px;">You have not approved any payments yet.</div>
+
+            {% endif %}
+            
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+          All attendees for this event
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+        <div class="accordion-body bg-dark" style="padding:0px;" id="allAttendeeList">
+
+            {% if numOfAllAttendees != 0 %}
+            <div class="d-flex bg-dark justify-content-center" style="padding:25px;">
+                <a class="btn btn-primary" href="{% url 'eventAttendeeCsv' currentEvent.id %}"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                      </svg>
+                    Download Data
+                </a>
+            </div>
+            <div class="overflow-auto">
+            <table class="table table-dark table-striped" style:"margin:0px; ">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Payment status</th>
+                    <th scope="col">Approver</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for attendee in allAttendees %}
+                    <tr>
+                        <th scope="row">{{ attendee.name }}</th>
+                        <td>{{ attendee.ageOfParticipants }}</td>
+                        <td>{{ attendee.contact }}</td>
+                        <td>{{ attendee.paymentStatus }}</td>
+                        <td>{{ attendee.approver }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+
+            {% else %}
+
+                <div class="bg-dark" style="padding:25px;">There are no participants for this event yet.</div>
+
+            {% endif %}
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

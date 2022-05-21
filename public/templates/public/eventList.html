@@ -1,0 +1,14 @@
+{% for event in event_list %}
+    <div class="card">
+        <div class="card-header">
+            <a class="card-link" href="{% url 'publicEventPage' event.id %}">{{ event }}</a>
+        </div>
+        <div class="card-body" style="padding:0;">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-light" style="margin:0;"> <b> Venue: </b> {{event.venue.name}} </li>
+                <li class="list-group-item list-group-item-light" style="margin:0;"> <b> Timings: </b> {{event.start_time}} to {{event.end_time}} </li>
+            </ul>            
+        </div>
+    </div>
+    <hr>
+{% endfor %}
