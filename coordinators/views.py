@@ -8,7 +8,7 @@ from .models import *
 from .forms import *
 
 
-def notSuperUser(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='Login'):
+def notSuperUser(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='organizerRedirect'):
     actual_decorator = user_passes_test(
         lambda u: u.is_active and not u.is_superuser,
         login_url=login_url,
@@ -18,6 +18,10 @@ def notSuperUser(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_u
         return actual_decorator(function)
     return actual_decorator
 
+
+def organizer_redirect(request):
+    return render(request, "coordinators/organizerRedirect.html", {
+    })
 
 @login_required
 @notSuperUser

@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'compressor',
     'public',
     'coordinators',
+    'organizers',
 ]
 
 MIDDLEWARE = [

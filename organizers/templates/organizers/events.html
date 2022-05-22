@@ -1,16 +1,10 @@
-{% extends 'coordinators/base.html' %}
+{% extends 'organizers/base.html' %}
 
 {% block content %}
 
 <div class="row flex-nowrap">
-    <div class="col-2" style="margin: 0px; min-width: min-content;">
-        <ul class="nav nav-pills  min-vh-100 flex-column bg-white" style="padding-top: 5px;">
-            <li class="nav-item">
-                <a class="nav-link disabled" style="font-weight: bold;">Your Events</a>
-            </li>
-            <li class="break">
-              <hr>
-            </li>
+    <div class="col-2" style="margin: 0px; width: min-content;">
+        <ul class="nav nav-pills  min-vh-100 flex-column bg-white" style="padding: 5px;">
             {% for event in event_list %}
             <li class="nav-item">
                 {% if currentEvent %}
@@ -27,13 +21,13 @@
         </ul>
     </div>
     <div class="col">
-        <div style="padding-top:15px; padding-left:10px; padding-right:10px;">
         {% if currentEvent %}
             {% include 'coordinators/event.html'  %}
         {% else %}
+            <div style="padding-top:10px;">
                 <h6>No event selected. Select an event from the events panel on the left.</h6>
+            </div>
         {% endif %}
-        </div>
     </div>
 </div>
 

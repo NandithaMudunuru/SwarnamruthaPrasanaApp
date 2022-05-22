@@ -16,26 +16,23 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'coordinatorHome' %}">Coordinators Portal</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'organizerHome' %}">Organizers Portal</a>
+        </li>
       </ul>      
       <ul class="navbar-nav"> 
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'coordinatorHome' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'coordinatorEventsBase' %}">Events</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'userProfile' %}">Profile</a>
-          </li>
-        {% if request.user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'Logout' %}">Logout</a>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'Login' %}">Login</a>
-          </li>
-        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'coordinatorHome' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'coordinatorEventsBase' %}">Events</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'userProfile' %}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'Logout' %}">Logout</a>
+        </li>
       </ul>
     </div>
   </div>
