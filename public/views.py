@@ -47,9 +47,6 @@ def event_page(request, event_id):
 
 @csrf_exempt
 def login_page(request):
-    if request.method == 'GET':
-        cache.set('next', request.GET.get('next', None))
-
     if request.method == 'POST':
         username = request.POST.get('Username', None)
         password = request.POST.get('Password', None)
@@ -68,7 +65,16 @@ def login_page(request):
             messages.success(request, "Invalid username or password. Please try again.")
             return redirect('Login')
     else:
-        return render(request, "public/login.html", {})
+        cache.set('next', request.GET.get('next', None))
+        if request.user.is_authenticated:
+            next_url = cache.get('next')
+            if next_url:
+                cache.delete('next')
+                return HttpResponseRedirect(next_url)
+            else:
+                return redirect('coordinatorHome')
+        else:
+            return render(request, "public/login.html", {})
 
 
 def logout_page(request):
@@ -108,7 +114,7 @@ def user_password(request):
 
     else:
         form = PasswordChangeForm(user=user)
-        return render(request, "public/profile.html", {
+        return render(request, "public/passwordChange.html", {
             'form': form,
         })
 

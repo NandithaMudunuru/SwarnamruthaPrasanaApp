@@ -32,7 +32,7 @@ def user_profile(request):
 
     else:
         form = CoordinatorProfileUpdate(instance=user)
-        return render(request, "public/profile.html", {
+        return render(request, "coordinators/profile.html", {
             'form': form,
         })
 
