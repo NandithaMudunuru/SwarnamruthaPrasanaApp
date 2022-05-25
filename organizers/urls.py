@@ -7,4 +7,5 @@ urlpatterns = [
     path('profile', views.organizer_profile, name="organizerProfile"),
     path('events', views.organizer_eventsBase, name="organizerEventsBase"),
     path('events/<event_id>', views.organizer_event, name="organizerEvent"),
+    path('newEvent', views.new_event, name="newEvent"),
 ]

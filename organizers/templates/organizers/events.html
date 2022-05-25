@@ -3,31 +3,44 @@
 {% block content %}
 
 <div class="row flex-nowrap">
-    <div class="col-2" style="margin: 0px; width: min-content;">
-        <ul class="nav nav-pills  min-vh-100 flex-column bg-white" style="padding: 5px;">
+    <div class="col-2" style="margin: 0px; min-width: min-content;">
+        <ul class="nav bg-white" style="padding: 12px;">
+            <li class="nav-item">
+                <a class="btn btn-success"  href="{% url 'newEvent' %}"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="1 1.5 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                    </svg>
+                    Create New Event 
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-pills  min-vh-100 flex-column bg-white">
+            <li class="nav-item">
+                <a class="nav-link disabled" style="font-weight: bold;">Existing Events:</a>
+            </li>
             {% for event in event_list %}
             <li class="nav-item">
                 {% if currentEvent %}
                     {% if event.id == currentEvent.id %}
-                        <a class="nav-link active" href="{% url 'coordinatorEvent' event.id %}"> {{ event }} </a>
+                        <a class="nav-link active" href="{% url 'organizerEvent' event.id %}"> {{ event }} </a>
                     {% else %}
-                        <a class="nav-link" href="{% url 'coordinatorEvent' event.id %}"> {{ event }} </a>
+                        <a class="nav-link" href="{% url 'organizerEvent' event.id %}"> {{ event }} </a>
                     {% endif %}
                 {% else %}
-                    <a class="nav-link" href="{% url 'coordinatorEvent' event.id %}"> {{ event }} </a>
+                    <a class="nav-link" href="{% url 'organizerEvent' event.id %}"> {{ event }} </a>
                 {% endif %}
             </li>
             {% endfor %}
         </ul>
     </div>
     <div class="col">
+        <div style="padding-top:15px; padding-left:10px; padding-right:10px;">
         {% if currentEvent %}
-            {% include 'coordinators/event.html'  %}
+            {% include 'organizers/event.html'  %}
         {% else %}
-            <div style="padding-top:10px;">
                 <h6>No event selected. Select an event from the events panel on the left.</h6>
-            </div>
         {% endif %}
+        </div>
     </div>
 </div>
 

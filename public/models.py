@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime, timedelta
 
 # Create your models here.
 
@@ -16,10 +17,12 @@ class Venue(models.Model):
 class Event(models.Model):
     name = models.CharField('Event Name', max_length=120)
     venue = models.ForeignKey(Venue, blank=True, null=True, on_delete=models.PROTECT)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    get_now = datetime.now()
+    start_time = models.DateTimeField(default=get_now.strftime("%Y-%m-%d %H:%M"))
+    end_time = models.DateTimeField(default=(get_now+ timedelta(hours=1)).strftime("%Y-%m-%d %H:%M"))
     Coordinator = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
-    scheduleStatus = models.TextChoices('FINAL', 'TENTATIVE')
+    statusChoices = ( ('Tn','Tentative'), ('Sc','Scheduled'), ('Cu','Coming Up This Week'), ('Ed','Event Day'), ('Cl','Closed'), ('Pv','Payments Verified') )
+    eventStatus = models.CharField('Event Status', max_length=20, choices=statusChoices, default='Sc')
 
     def __str__(self):
         return self.name

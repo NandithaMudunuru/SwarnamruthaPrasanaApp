@@ -41,12 +41,28 @@ def organizer_profile(request):
             'form': form,
         })
 
+@login_required
+@SuperUser
+def new_event(request):
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        if form.is_valid():
+            newEvent = form.save()
+            event_id = newEvent.pk
+            messages.success(request, ('New Event Successfully Created.'))
+            return redirect('organizerEvent', event_id)
+
+    else:
+        form = EventForm()
+        return render(request, "organizers/newEvent.html", {
+            'form': form,
+        })
+
 
 @login_required
 @SuperUser
 def organizer_eventsBase(request):
-    user = request.user
-    event_list = Event.objects.filter(Coordinator=user)
+    event_list = Event.objects.all()
     return render(request, "organizers/events.html", {
         "event_list": event_list,
         "currentEvent": False,
@@ -56,23 +72,36 @@ def organizer_eventsBase(request):
 @login_required
 @SuperUser
 def organizer_event(request, event_id):
-    user = request.user
-    event_list = Event.objects.filter(Coordinator=user)
-    currentEvent = Event.objects.get(pk=event_id)
-    allAttendees = Attendee.objects.filter(event=currentEvent)
-    attendees = Attendee.objects.filter(event=currentEvent, approver=user)
-    numOfAttendees = len(attendees)
-    numOfAllAttendees = len(allAttendees)
-    amountCollected = numOfAttendees*50
-    return render(request, "organizers/events.html", {
-        "event_list": event_list,
-        "currentEvent": currentEvent,
-        "attendees": attendees,
-        "allAttendees": allAttendees,
-        "numOfAttendees": numOfAttendees,
-        "numOfAllAttendees": numOfAllAttendees,
-        "amountCollected": amountCollected,
-    })
+    if request.method == "POST" and  request.POST.get('formType')=='Update Event':
+        form = EventForm(request.POST, instance=Event.objects.get(pk=event_id))
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Event update Successful.'))
+            return redirect('organizerEvent', event_id)
+    elif request.method == "POST" and  request.POST.get('formType')=='Delete Event':
+        currentEvent = Event.objects.get(pk=event_id)
+        currentEvent.delete()
+        return redirect('organizerEventsBase')
+
+    else:
+        event_list = Event.objects.all()
+        currentEvent = Event.objects.get(pk=event_id)
+        allAttendees = Attendee.objects.filter(event=currentEvent)
+        numOfAllAttendees = len(allAttendees)
+        numOfApprovedAttendees = len(allAttendees.filter(paymentStatus=True))
+        amountCollected = numOfApprovedAttendees*50
+        totalAmount = numOfAllAttendees*50
+        form = EventForm(instance=currentEvent)
+        return render(request, "organizers/events.html", {
+            "event_list": event_list,
+            "currentEvent": currentEvent,
+            "allAttendees": allAttendees,
+            "numOfAllAttendees": numOfAllAttendees,
+            "totalAmount": totalAmount,
+            "amountCollected": amountCollected,
+            "numOfApprovedAttendees": numOfApprovedAttendees,
+            "form": form,
+        })
 
 
 @login_required
