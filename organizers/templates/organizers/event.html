@@ -1,0 +1,137 @@
+<div style="margin:20px; margin-left:0px;">
+  <div class="accordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+          Overview
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body bg-dark">
+
+              <div class="row justify-content-between">
+                <div class="col-4">
+                    Number of registered attendees:  {{numOfAllAttendees}} <br/>
+                </div>
+                <div class="col-4">
+                    <b>Total amount to be collected:</b> {{totalAmount}} <br/>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    Number of approved attendees:  {{numOfApprovedAttendees}} <br/>
+                </div>
+                <div class="col-4">
+                    <b>Amount collected:</b> {{amountCollected}} <br/>
+                </div>
+            </div>
+            <hr>
+            <b>Timings:</b> {{currentEvent.start_time}} to {{currentEvent.end_time}} <br/>
+            <b>Venue:</b>  <br/>            
+            <i>Address:</i> {{currentEvent.venue.address}} <br/>  
+            <i>PIN Code:</i> {{currentEvent.venue.pincode}} <br/> 
+
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+          Attendee List
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+        <div class="accordion-body bg-dark" style="padding:0px;" id="allAttendeeList">
+
+            {% if numOfAllAttendees != 0 %}
+            <div class="d-flex bg-dark justify-content-center" style="padding:25px;">
+                <a class="btn btn-primary" href="{% url 'eventAttendeeCsv' currentEvent.id %}"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                      </svg>
+                    Download Data
+                </a>
+            </div>
+            <div class="overflow-auto">
+            <table class="table table-dark table-striped" style:"margin:0px; ">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Payment status</th>
+                    <th scope="col">Approver</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for attendee in allAttendees %}
+                    <tr>
+                        <th scope="row">{{ attendee.name }}</th>
+                        <td>{{ attendee.ageOfParticipants }}</td>
+                        <td>{{ attendee.contact }}</td>
+                        <td>{{ attendee.paymentStatus }}</td>
+                        <td>{{ attendee.approver }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+
+            {% else %}
+
+                <div class="bg-dark" style="padding:25px;">There are no participants for this event yet.</div>
+
+            {% endif %}
+            
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+          Edit Event
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+        <div class="accordion-body bg-dark" style="padding:0px; margin:0px;" id="EditEventDiv">
+          <div class="d-flex justify-content-center" style="padding:0px; margin:0px;">
+            <div class="card" style="margin:20px;">
+                <div class="card-header" style="color:black; ">
+                    Event Form
+                </div>
+                <div class="card-body">
+                  <form action="" method=POST style="justify-content: center; color: black;">
+              
+                      {% csrf_token %}
+              
+                      {{ form.as_p }}
+              
+                      <input type="submit" value="Update Event" class="btn btn-warning" name="formType" style="width:100%;">
+              
+                  </form>
+                </div>
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <button class="btn btn-danger" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" style="margin-top:20px;">Delete Event</button>
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+      <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <p id="offcanvasTopLabel" style="color: black;">Proceeding further will delete this event permanently. All data including the information of attendees of this event will be lost. Would you like to proceed?</p>
+        <form action="" method=POST style="margin-top:20px;">
+    
+          {% csrf_token %}
+          <input type="submit" value="Delete Event" class="btn btn-danger" name="formType">
+    
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

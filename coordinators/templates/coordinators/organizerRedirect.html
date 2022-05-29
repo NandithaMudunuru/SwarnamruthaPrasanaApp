@@ -1,0 +1,17 @@
+{% extends 'coordinators/base.html' %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-center" style="margin-top: 5%;">
+        <div class="card">
+            <div class="card-header bg-light" style="color:black;"> Access denied</div>
+            <div class="card-body bg-light" style="color:black">
+                You can not access this portal as you are not a coordinator. Return to organizer portal.
+                <br>
+                <br>
+                <a class="btn btn-secondary" aria-current="page" href="{% url 'organizerEventsBase' %}">Organizers Portal</a>
+            </div>
+        </div>   
+    </div>
+
+{% endblock %}

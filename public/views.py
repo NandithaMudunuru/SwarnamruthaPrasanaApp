@@ -29,15 +29,20 @@ def event_page(request, event_id):
             attendee = form.save(commit=False)
             attendee.event = event
             attendee.save()
-            messages.success(request,"{event}/{attendee}".format(event=event_id,attendee=attendee.id) )
-            return 	HttpResponseRedirect('event\{}?submitted=True'.format(event_id))
+            return render(request, "public/attendeeFormSuccess.html", {
+                'code': "{event}/{attendee}".format(event=event_id,attendee=attendee.id),
+                'event': event,
+                'event_list': event_list,
+            })
 
     else:
+        if cache.get('attendeeCode'):
+            cache.delete('attendeeCode')
         form = AttendeeRegistrationForm
         if 'submitted' in request.GET:
             submitted = True
     
-    return render(request, "public/eventPage.html", {
+    return render(request, "public/attendeeForm.html", {
         'event_list': event_list,
         'event': event,
         'form':form,
@@ -58,6 +63,8 @@ def login_page(request):
             if next_url:
                 cache.delete('next')
                 return HttpResponseRedirect(next_url)
+            elif user.is_superuser:
+                return redirect('organizerHome')
             else:
                 return redirect('coordinatorHome')
         else:
@@ -71,6 +78,8 @@ def login_page(request):
             if next_url:
                 cache.delete('next')
                 return HttpResponseRedirect(next_url)
+            elif user.is_superuser:
+                return redirect('organizerHome')
             else:
                 return redirect('coordinatorHome')
         else:

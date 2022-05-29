@@ -21,4 +21,6 @@ urlpatterns = [
     path('',include('public.urls')),
     path('coordinators/',include('django.contrib.auth.urls')),
     path('coordinators/',include('coordinators.urls')),
+    path('organizers/',include('django.contrib.auth.urls')),
+    path('organizers/',include('organizers.urls')),
 ]

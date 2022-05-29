@@ -1,0 +1,20 @@
+{% extends 'public/eventPage.html' %}
+
+{% block form %}
+
+    Your registration was successfull. Following is your unique code for this registration:
+        <div class="d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title justify-content-center"> {{ code }}</h1>
+            </div>
+        </div>
+        </div>
+
+    You are expected to pay 50₹ for the drops at the venue. When paying, please show this code to the event coordinator at the venue for payment verification.
+
+    <div class="d-grid gap-2 d-md-flex justify-content-center" style="margin-top: 20px;">
+        <a class="btn btn-primary" href="{% url 'publicEventPage' event.id %}" role="button">New Registration</a>
+    </div>
+
+{% endblock form %}
