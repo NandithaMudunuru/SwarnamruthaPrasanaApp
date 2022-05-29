@@ -110,3 +110,49 @@ def organizer_event(request, event_id):
 def organizer_home(request):
     return render(request, "organizers/home.html", {
     })
+
+@login_required
+@SuperUser
+def venues_Base(request):
+    venues = Venue.objects.all()
+    return render(request, "organizers/venues.html", {
+        'venues':venues,
+    })
+
+@login_required
+@SuperUser
+def venues_Delete(request, venue_id):
+    venue = Venue.objects.get(pk=venue_id)
+    venue.delete()
+    return redirect('organizerVenues')
+
+@login_required
+@SuperUser
+def venue_Form(request, venue_id=False):
+    if venue_id:
+        venue = Venue.objects.get(pk=venue_id)
+        if request.method == "POST":
+            form = VenueForm(request.POST, instance=venue)
+            if form.is_valid():
+                form.save()
+                messages.success(request, ('Venue Successfully Updated.'))
+                return redirect('organizerVenues')
+
+        else:
+            form = VenueForm(instance=venue)
+            return render(request, "organizers/newVenue.html", {
+                'form': form,
+            })
+    else:
+        if request.method == "POST":
+            form = VenueForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, ('New Venue Successfully Created.'))
+                return redirect('organizerVenues')
+
+        else:
+            form = VenueForm()
+            return render(request, "organizers/newVenue.html", {
+                'form': form,
+            })

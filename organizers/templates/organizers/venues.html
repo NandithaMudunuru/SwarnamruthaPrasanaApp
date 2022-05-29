@@ -1,0 +1,45 @@
+{% extends 'organizers/base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center" style="width:100%; margin-top: 18px;">
+    <a class="btn btn-success"  href="{% url 'newVenue' %}"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="1 1.5 16 16">
+            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+        </svg>
+        Create New Venue 
+    </a>
+</div>
+
+<hr>
+
+<div class="container-fluid">
+    <div class="row row-cols-auto">
+        {% for venue in venues %}
+        <div class="col-md-4" style="margin-top: 15px;">
+            <div class="d-flex justify-content-center" style="width:100%; height: 100%;">
+                <div class="card" style="width: 90%; height: 100%; color: black;">
+                    <div class="card-header">
+                        <h5>{{ venue }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Address:</h6> 
+                        {{venue.address}}  
+                        <p></p>
+                        <h6>PIN Code:</h6>
+                        {{venue.pincode}} 
+                    </div>                    
+                    <div class="card-footer">
+                        <a href="{% url 'updateVenue' venue.id %}" class="btn btn-warning" style="width:100%;">Edit Venue</a>
+                        <p></p>
+                        <a href="{% url 'deleteVenue' venue.id %}" class="btn btn-danger" style="width:100%;">Delete Venue</a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        {% endfor %}
+</div>
+
+
+{% endblock content %}
+

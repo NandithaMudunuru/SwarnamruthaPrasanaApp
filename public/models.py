@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 class Venue(models.Model):
     name = models.CharField('Venue Name', max_length=120)
     address = models.CharField('Venue Address', max_length=400)
-    pincode = models.CharField('Venue Post Code', max_length=10)
+    pincode = models.CharField('Venue Post Code', max_length=6)
     web = models.URLField('Venue Website', max_length=120, blank=True)
 
     def __str__(self):
