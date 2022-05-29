@@ -106,13 +106,6 @@ def organizer_event(request, event_id):
 
 @login_required
 @SuperUser
-@csrf_exempt
-def organizer_home(request):
-    return render(request, "organizers/home.html", {
-    })
-
-@login_required
-@SuperUser
 def venues_Base(request):
     venues = Venue.objects.all()
     return render(request, "organizers/venues.html", {
