@@ -129,21 +129,22 @@ DATABASES = {
 }"""
 import dj_database_url
 
+
+#Local database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'JaiSrimanNarayana',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
 if os.environ.get('DATABASE_URL'):
     #Deployment database
     DATABASES['default'] = dj_database_url.config(default=os.environ['DATABASE_URL'])
-else:
-    #Local server
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'postgres',
-            'USER': 'postgres',
-            'PASSWORD': 'JaiSrimanNarayana',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    }
 
 
 # Password validation
