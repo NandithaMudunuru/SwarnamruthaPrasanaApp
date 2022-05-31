@@ -64,7 +64,7 @@ def login_page(request):
                 cache.delete('next')
                 return HttpResponseRedirect(next_url)
             elif user.is_superuser:
-                return redirect('organizerHome')
+                return redirect('organizerEventsBase')
             else:
                 return redirect('coordinatorHome')
         else:

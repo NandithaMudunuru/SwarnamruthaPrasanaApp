@@ -1,9 +1,14 @@
+from django.urls import reverse
+from django.http import HttpResponse
+from django.http import FileResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+import qrcode
+import qrcode.image.svg
+from io import BytesIO
 from .models import *
 from .forms import *
 
@@ -68,6 +73,27 @@ def organizer_eventsBase(request):
         "currentEvent": False,
     })
 
+def generateQRCode(request, event_id, renderAs='svg'):
+    if renderAs=='svg':
+        factory = qrcode.image.svg.SvgImage # svg images
+        qr = qrcode.QRCode(
+            version = 1,
+            error_correction = qrcode.constants.ERROR_CORRECT_L,
+            box_size = 20,
+            border = 4,
+            image_factory=factory,
+        )
+    elif renderAs=='png':
+        qr = qrcode.QRCode(
+            version = 1,
+            error_correction = qrcode.constants.ERROR_CORRECT_L,
+            box_size = 20,
+            border = 4,
+        )
+    url = request.build_absolute_uri(reverse('publicEventPage', args=[event_id]))
+    qr.add_data(url)
+    qr.make(fit=True)
+    return qr
 
 @login_required
 @SuperUser
@@ -92,6 +118,10 @@ def organizer_event(request, event_id):
         amountCollected = numOfApprovedAttendees*50
         totalAmount = numOfAllAttendees*50
         form = EventForm(instance=currentEvent)
+        qr = generateQRCode(request, event_id)
+        stream = BytesIO()
+        Image = qr.make_image()
+        Image.save(stream)
         return render(request, "organizers/events.html", {
             "event_list": event_list,
             "currentEvent": currentEvent,
@@ -101,7 +131,20 @@ def organizer_event(request, event_id):
             "amountCollected": amountCollected,
             "numOfApprovedAttendees": numOfApprovedAttendees,
             "form": form,
+            "qrCode": stream.getvalue().decode(),
         })
+
+@login_required
+@SuperUser
+def qrCode_Download(request, event_id):
+    qr = generateQRCode(request, event_id, 'png')
+    stream = BytesIO()
+    Image = qr.make_image()
+    Image.save(stream)
+    event = Event.objects.get(pk=event_id)
+    response = HttpResponse(stream.getvalue(), content_type="image/png")
+    response['Content-Disposition'] = 'attachment; filename="EventLink_{}_{}.png'.format(event.venue.name,event.start_time.strftime('%B'))
+    return response
 
 
 @login_required
