@@ -6,6 +6,7 @@ urlpatterns = [
     path('profile', views.organizer_profile, name="organizerProfile"),
     path('events', views.organizer_eventsBase, name="organizerEventsBase"),
     path('events/<event_id>', views.organizer_event, name="organizerEvent"),
+    path('events/qrCodeDownload/<event_id>', views.qrCode_Download, name="eventQrDownload"),
     path('newEvent', views.new_event, name="newEvent"),
     path('venues', views.venues_Base, name="organizerVenues"),
     path('venue', views.venue_Form, name="newVenue"),
