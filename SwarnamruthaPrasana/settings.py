@@ -40,6 +40,8 @@ STATICFILES_FINDERS = [
 ]
 
 COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
@@ -52,11 +54,9 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    'public/static',
-    'organizers/static',
-    'coordinators/static',
-]
+
+COMPRESS_STORAGE = STATICFILES_STORAGE
+COMPRESS_URL = STATIC_URL
 
 # Application definition
 INSTALLED_APPS = [

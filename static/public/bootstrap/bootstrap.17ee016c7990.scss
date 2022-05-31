@@ -1,0 +1,48 @@
+@import 'public/bootstrap/theme';
+
+
+
+body {
+    background-color: $light;
+    color: $dark;
+    text-align: null;
+}
+
+
+// Links
+
+.card-link{
+    text-transform: uppercase;
+    color: $dark;
+    font-size: large;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+$link-color:                              $secondary !default;
+$link-decoration:                         null !default;
+$link-shade-percentage:                   $success !default;
+$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
+$link-hover-decoration:                   null !default;
+
+
+// Navbar colors
+
+$navbar-dark-color:                 rgba($light, .55);
+$navbar-dark-hover-color:          rgba($secondary, .7);
+$navbar-dark-active-color:         rgba($success, .9);
+$navbar-dark-disabled-color:        rgba($light, .25);
+$navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+$navbar-dark-toggler-border-color:  rgba($secondary, .1);
+
+$navbar-light-color:                rgba($dark, .55);
+$navbar-light-hover-color:          rgba($secondary, .7);
+$navbar-light-active-color:         rgba($success, .9);
+$navbar-light-disabled-color:       rgba($dark, .3);
+$navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+$navbar-light-toggler-border-color: rgba($secondary, .1);
+
+$navbar-light-brand-color:                $navbar-light-active-color;
+$navbar-light-brand-hover-color:          $navbar-light-active-color;
+$navbar-dark-brand-color:                 $navbar-dark-active-color;
+$navbar-dark-brand-hover-color:           $navbar-dark-active-color;

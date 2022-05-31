@@ -1,0 +1,21 @@
+@import "public/bootstrap/colors";
+
+$primary:    $blue-600;
+$secondary:  $indigo-500;
+$success:    $green-500;
+$info:       $cyan-400;
+$warning:    $yellow-400;
+$danger:     $red-500;
+$light:      $gray-200;
+$dark:       $gray-900;
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark,
+);
