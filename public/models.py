@@ -20,7 +20,7 @@ class Event(models.Model):
     get_now = datetime.now()
     start_time = models.DateTimeField(default=get_now.strftime("%Y-%m-%d %H:%M"))
     end_time = models.DateTimeField(default=(get_now+ timedelta(hours=1)).strftime("%Y-%m-%d %H:%M"))
-    Coordinator = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    Coordinator = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, limit_choices_to={'is_superuser': False})
     statusChoices = ( ('Tn','Tentative'), ('Sc','Scheduled'), ('Cu','Coming Up This Week'), ('Ed','Event Day'), ('Cl','Closed'), ('Pv','Payments Verified') )
     eventStatus = models.CharField('Event Status', max_length=20, choices=statusChoices, default='Sc')
 
