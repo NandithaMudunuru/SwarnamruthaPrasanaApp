@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-a211l_g19%j(3vl!oh!akqe)+!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', True)
 
-ALLOWED_HOSTS = ['swarnamrutha-prasana.herokuapp.com']
+ALLOWED_HOSTS = ['swarnamrutha-prasana.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
