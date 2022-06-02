@@ -2,14 +2,11 @@
 
 {% block content %}
 
-<div class="row flex-nowrap">
-    <div class="col-2" style="margin: 0px; min-width: min-content;">
-        <ul class="nav nav-pills  min-vh-100 flex-column bg-white" style="padding-top: 5px;">
+<div class="row flex-nowrap min-vh-100" style="min-height: 100%;">
+    <div class="col-2" style="margin: 0px; min-width: min-content; align-self: stretch;">
+        <ul class="nav flex-column nav-pills bg-white" style="padding-top: 5px; height:100%;">
             <li class="nav-item">
                 <a class="nav-link disabled" style="font-weight: bold;">Your Events</a>
-            </li>
-            <li class="break">
-              <hr>
             </li>
             {% for event in event_list %}
             <li class="nav-item">
@@ -26,7 +23,7 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="col">
+    <div class="col" style="flex-shrink: 1; flex-grow: 1; align-self: stretch;">
         <div style="padding-top:15px; padding-left:10px; padding-right:10px;">
         {% if currentEvent %}
             {% include 'coordinators/event.html'  %}

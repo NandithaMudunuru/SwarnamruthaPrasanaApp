@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<div class="row flex-nowrap">
-    <div class="col-2" style="margin: 0px; min-width: min-content;">
-        <ul class="nav bg-white" style="padding: 12px;">
-            <li class="nav-item">
-                <a class="btn btn-success"  href="{% url 'newEvent' %}"> 
+<div class="row flex-nowrap min-vh-100" style="min-height: 100%;">
+    <div class="col-2" style="margin: 0px; min-width: min-content; align-self: stretch;">
+        <ul class="nav bg-white" style="width:100%; padding: 10px;">
+            <li class="nav-item" style="width:100%;">
+                <a class="btn btn-success"  href="{% url 'newEvent' %}" style="width:100%;"> 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="1 1.5 16 16">
                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                     </svg>
@@ -14,7 +14,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav nav-pills  min-vh-100 flex-column bg-white">
+        <ul class="nav flex-column nav-pills bg-white" style="padding-top: 5px; height:100%;">
             <li class="nav-item">
                 <a class="nav-link disabled" style="font-weight: bold;">Existing Events:</a>
             </li>
@@ -33,7 +33,7 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="col">
+    <div class="col" style="flex-shrink: 1; flex-grow: 1; align-self: stretch;">
         <div style="padding-top:15px; padding-left:10px; padding-right:10px;">
         {% if currentEvent %}
             {% include 'organizers/event.html'  %}
