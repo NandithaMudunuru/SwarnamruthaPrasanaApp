@@ -46,7 +46,7 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
-COMPRESS_OUTPUT_DIR = 'cache/'
+COMPRESS_OUTPUT_DIR = 'static/'
 
 LIBSASS_OUTPUT_STYLE = 'compressed'
 
