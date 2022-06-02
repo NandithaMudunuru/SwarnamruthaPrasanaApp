@@ -32,7 +32,7 @@ def user_profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, ('Update Successful.'))
-            return redirect('userProfile')
+            return redirect('coordinatorHome')
 
     else:
         form = CoordinatorProfileUpdate(instance=user)
@@ -96,9 +96,9 @@ def coordinator_home(request):
             })
     elif request.method == "POST" and request.POST.get('formType')=='fetch':
         uniqueCode = request.POST.get('UniqueCode')
-        eventId = int(uniqueCode.split("/")[0])
-        attendeeId = int(uniqueCode.split("/")[1])
         try:
+            eventId = int(uniqueCode.split("/")[0])
+            attendeeId = int(uniqueCode.split("/")[1])
             attendee = Attendee.objects.get(pk=attendeeId)
         except:
             messages.success(request, "Invalid code. Please try again.")
