@@ -103,6 +103,12 @@ def user_register(request):
             login(request, user)
             messages.success(request, ('Registration Successful.'))
             return redirect('userProfile')
+        else:
+            messages.success(request, ('Registration unsucessful. Try again.'))
+            return render(request, "public/register.html", {
+                'form': form,
+            })
+
     else:
         form = UserCreationForm()
         return render(request, "public/register.html", {
