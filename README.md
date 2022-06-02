@@ -71,17 +71,17 @@ DATABASES = {
 
 This way there is no need to tweak the settings file. You will now have to migrate the models to the database. But before doing that since this site uses database cache you need to create a cache table.
 ```bash
-(djangoVenv) SwarnamruthaPrasanaApp $ python manage.py createcachetable
-(djangoVenv) SwarnamruthaPrasanaApp $ python manage.py makemigrations
-(djangoVenv) SwarnamruthaPrasanaApp $ python manage.py migrate
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ python manage.py createcachetable
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ python manage.py makemigrations
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ python manage.py migrate
 ```
 With this you can now locally run the site without heroku. You can also create a django ``superuser`` to do some admin work or change permissions for any dummy users you create for testing.
 
 Finally, you need to compress and collect all the static files before you run the server.
 ```bash
-(djangoVenv) SwarnamruthaPrasanaApp $ python manage.py compress
-(djangoVenv) SwarnamruthaPrasanaApp $ python manage.py collectstatic
-(djangoVenv) SwarnamruthaPrasanaApp $ python manage.py runserver
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ python manage.py compress
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ python manage.py collectstatic
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ python manage.py runserver
 ```
 
 Depending on your edits you may have to run some of these commands during development.
@@ -92,22 +92,22 @@ The website is deployed vis Heroku.
 So before deploying chnages, it is best to test heroku locally. 
 Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli) and use the following command instead of ``python manage.py runserver`` to run local server:
 ```bash
-(djangoVenv) SwarnamruthaPrasanaApp $ heroku local -f Procfile.windows
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ heroku local -f Procfile.windows
 ```
 If the changes are ready for deployment, log in to heroku using ``$ heroku login`` and push all commited changes from local master branch to heroku master. 
 ```bash
-(djangoVenv) SwarnamruthaPrasanaApp $ git push heroku master
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ git push heroku master
 ```
 However, you may not have access to do this. 
 In that case, the best way to collaborate is by creating a new local branch:
 ```bash
-$ git checkout -b <newBrachForChanges>
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ git checkout -b <newBrachForChanges>
 ```
 to make necessary changes. After testing the changes on local server, commit them to the local branch and push the branch upstream to the [Github repository](https://github.com/NandithaMudunuru/SwarnamruthaPrasanaApp.git). 
 ```bash
-$ git add .
-$ git commit -m "<Comments for the commits>"
-$ git push -u origin <newBrachForChanges>
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ git add .
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ git commit -m "<Comments for the commits>"
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ git push -u origin <newBrachForChanges>
 ```
 Then visit the [Github repository](https://github.com/NandithaMudunuru/SwarnamruthaPrasanaApp.git) and create a pull request to merge the changes with the master branch. People with access to deploy the site on heroku will verify the changes and push to heroku master.
 
