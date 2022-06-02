@@ -13,7 +13,11 @@ A site to support swarnamrutha prasana events conducted by Vikasatarangini and J
 
 ---------
 
-## Setup
+## Developer Guide 
+
+### Windows 10
+
+#### Code: Cloning the git repository
 
 If you are already here, you have access to the [Github repository](https://github.com/NandithaMudunuru/SwarnamruthaPrasanaApp.git). Clone the repository to your local machine.
 
@@ -21,8 +25,28 @@ If you are already here, you have access to the [Github repository](https://gith
 $ git clone https://github.com/NandithaMudunuru/SwarnamruthaPrasanaApp.git
 ```
 
-In the repository, you will find a ``requirements.txt`` file. Use this to create a virtual envirnoment for texting the Django project locally.
-However, since the project uses postgres DBMS, you will have to set this up locally. See [postgres local setup](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) for instructions.
+#### Development: Python & virtual environment
+
+Since the project is based on python-Django, you have to setup Python >= 3.10.4. 
+Checkout this easy to follow [guide](https://realpython.com/installing-python/) to verfiy your python version or setup it up. 
+Once verified, setup a virtual environment for the project. 
+While there are many ways to set it up, I like to have all my virtual environments in one location. 
+I start by creating a ``.venvs`` folder in ``C:\Users\<user>\`` and then creating all virutal environemnts within that folder. 
+```bash
+$ python -m venv C:\Users\<user>\.venvs\<NameForCurrentProjectVenv>
+``` 
+and activate it
+```bash
+$ C:\Users\<user>\.venv\<NameForCurrentProjectVenv>\Scripts\activate
+```
+With the virtual environment activated, use the ``requirements.txt`` file from the cloned git repository to install all the dependencies for testing this Django project locally.
+```bash
+(NameForCurrentProjectVenv) SwarnamruthaPrasanaApp $ pip install -r requirements.txt
+```
+
+#### DBMS: Postgres
+
+Since the project uses postgres DBMS, you will have to set this up locally. See [postgres local setup](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) for instructions.
 During the setup, you will be asked to define the following:
 
 * Database Name
@@ -60,10 +84,38 @@ Finally, you need to compress and collect all the static files before you run th
 (djangoVenv) SwarnamruthaPrasanaApp $ python manage.py runserver
 ```
 
-Depending on your edits you may have to run some of these commands during development. Before deployment it is best to test heroku locally. To do this, install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli) and use the follwing command instead of ``python manage.py runserver``:
+Depending on your edits you may have to run some of these commands during development.
+
+#### Deployment: Heroku
+
+The website is deployed vis Heroku. 
+So before deploying chnages, it is best to test heroku locally. 
+Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli) and use the following command instead of ``python manage.py runserver`` to run local server:
 ```bash
 (djangoVenv) SwarnamruthaPrasanaApp $ heroku local -f Procfile.windows
 ```
-Once heroku is setup and you are logged in to heroku using ``$ heroku login``, it is possible to ``$ git push heroku master`` all commited changes on local master branch. 
+If the changes are ready for deployment, log in to heroku using ``$ heroku login`` and push all commited changes from local master branch to heroku master. 
+```bash
+(djangoVenv) SwarnamruthaPrasanaApp $ git push heroku master
+```
 However, you may not have access to do this. 
-In that case, the best way to collaborate is by commiting changed to a new local branch, pushing the branch upstream to the [Github repository](https://github.com/NandithaMudunuru/SwarnamruthaPrasanaApp.git) and creating a pull request to repository master. People with access to the heroku deployed site will verify the changes and push to heroku master.
+In that case, the best way to collaborate is by creating a new local branch:
+```bash
+$ git checkout -b <newBrachForChanges>
+```
+to make necessary changes. After testing the changes on local server, commit them to the local branch and push the branch upstream to the [Github repository](https://github.com/NandithaMudunuru/SwarnamruthaPrasanaApp.git). 
+```bash
+$ git add .
+$ git commit -m "<Comments for the commits>"
+$ git push -u origin <newBrachForChanges>
+```
+Then visit the [Github repository](https://github.com/NandithaMudunuru/SwarnamruthaPrasanaApp.git) and create a pull request to merge the changes with the master branch. People with access to deploy the site on heroku will verify the changes and push to heroku master.
+
+
+---------
+
+## License & copyright
+
+[![License : GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/NandithaMudunuru/SwarnamruthaPrasanaApp/blob/master/LICENSE)
+
+Copyright (C) 2022 [Nanditha Mudunuru](www.linkedin.com/in/nmudunuru), [Vikasa Tharangini](https://vtsbharath.org/aboutus/)
